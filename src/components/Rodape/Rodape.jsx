@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function Rodape() {
   return (
-    <footer>
+    <footer className='rodape'>
         <p>Feito por rm55214</p>
     </footer>
   )
