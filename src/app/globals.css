@@ -1,3 +1,15 @@
-/* @tailwind base;
+@tailwind base;
 @tailwind components;
-@tailwind utilities; */
+@tailwind utilities;
+
+@layer components {
+    .menu {
+        & li{
+            @apply inline;
+
+            & a{
+                @apply inline-block md:p-3 lg:p-6 sm:p-1 font-extrabold hover:bg-white hover:text-blue-800 transition-all duration-300 ease-in-out;
+            }
+        }
+    }
+}
