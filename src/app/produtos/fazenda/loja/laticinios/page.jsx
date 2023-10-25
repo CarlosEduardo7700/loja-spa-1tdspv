@@ -1,6 +1,8 @@
+import Image from "next/image";
+
 export default async function TodosLaticinios() {
 
-    const response = await fetch("/api/laticinios");
+    const response = await fetch("http://localhost:3000/api/laticinios");
     const queijos = await response.json();
 
     return (
