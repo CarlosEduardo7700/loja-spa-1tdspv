@@ -33,4 +33,27 @@
     .rodape {
         @apply font-extrabold text-2xl text-white bg-slate-800 p-4 text-center fixed bottom-0 w-full;
     }
+
+    .lat-prod-all {
+        
+        & table {
+            @apply w-full text-center border border-black;
+        
+            & thead {
+                @apply bg-blue-950 text-white;
+            }
+
+            & tbody {
+                @apply bg-blue-950 text-white;
+
+                & td {
+                    @apply p-2 border border-white;
+                    & img {
+                        @apply block m-auto;
+                    }
+                }
+            }
+        }
+
+    }
 }

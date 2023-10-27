@@ -14,7 +14,7 @@ export default async function TodosLaticinios() {
     }
 
     return (
-        <div>
+        <div className="lat-prod-all">
             <h1>Laticínios</h1>
 
             <table>
