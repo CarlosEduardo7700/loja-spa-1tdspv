@@ -22,7 +22,7 @@ export async function GET(request, {params}) {
 export async function POST(request, response) {
     const file = await fs.readFile(process.cwd() + "/src/app/api/base/data.json", "utf8")
     
-    const usuarios = await request.json(file)
+    const usuarios = await JSON.parse(file)
     
     const userRequest = await request.json()
 
