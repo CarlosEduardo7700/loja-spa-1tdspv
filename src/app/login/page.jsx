@@ -1,15 +1,31 @@
 "use client"
 
-import { useState } from "react"
+import { useRouter } from "next/navigation"
+import { useEffect, useState } from "react"
 
 export default function Login() {
 
+    // Redirect no 'use client'
+    const router = useRouter()
+
     const [msgStatus, setMsgStatus] = useState("")
+    const [classLoginMsg, setClassLoginMsg] = useState("")
 
     const [usuario, setUsuario] = useState({
         "email":"",
         "senha":""
     })
+
+    useEffect(() => {
+        if(msgStatus == "Login realizado com sucesso!"){
+            setClassLoginMsg("login-suc")
+        } else if (msgStatus == "Usuário e/ou senha inválido! Tente novamente.") {
+            setClassLoginMsg("login-err")
+        } else {
+            setClassLoginMsg("login")
+        }
+    }, [msgStatus])
+    
 
     const handleChange = (e) => {
         const{name, value} = e.target
@@ -36,8 +52,23 @@ export default function Login() {
                     
                     setMsgStatus("Login realizado com sucesso!")
 
+                    setTimeout(()=>{
+                        setMsgStatus("")
+                        router.push("/")
+                    }, 5000)
+
                 } else {
-                    setMsgStatus("Usuário e senha inválido! Tente novamente.")
+
+                    setMsgStatus("Usuário e/ou senha inválido! Tente novamente.")
+
+                    setTimeout(()=>{
+                        setMsgStatus("")
+                        setUsuario({
+                            "email":"",
+                            "senha":""
+                        })
+                    }, 5000)
+                
                 }
             }
 
@@ -52,21 +83,31 @@ export default function Login() {
     <div>
         <h1>INFORMAÇÕES DOS USUÁRIOS</h1>
 
-        <h2>{msgStatus}</h2>
+        <h2 className={classLoginMsg}>{msgStatus}</h2>
 
         <div>
             <form onSubmit={handleSubmit}>
                 <fieldset>
                     <legend>LOGIN</legend>
+
                     <div>
                         <label htmlFor="idEmail">EMAIL</label>
                         <input type="email" name="email" id="idEmail" placeholder="Digite o seu EMAIL:" value={usuario.email} onChange={handleChange}/>
                     </div>
+
                     <div>
                         <label htmlFor="idSenha">SENHA</label>
                         <input type="password" name="senha" id="idSenha" placeholder="Digite o seu SENHA:" value={usuario.senha} onChange={handleChange}/>
                     </div>
-                    <button>LOGIN</button>
+
+                    <div>
+                        <button>LOGIN</button>
+                    </div>
+
+                    <div>
+                        <p>Se você ainda não possui registro. CLIQUE AQUI.</p>
+                    </div>
+
                 </fieldset>
             </form>
         </div>

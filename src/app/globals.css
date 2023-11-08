@@ -4,6 +4,18 @@
 
 @layer components {
 
+    .login-suc {
+        @apply bg-green-500 text-white text-center text-3xl p-5;
+    }
+
+    .login-err {
+        @apply bg-red-500 text-white text-center text-3xl p-5;
+    }
+
+    .login {
+        @apply hidden;
+    }
+
     .card-user {
         @apply flex flex-wrap;
 
