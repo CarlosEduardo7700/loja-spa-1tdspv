@@ -4,7 +4,7 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 
-export default function LoginUser() {
+export default function CadUser({params}) {
 
     // Redirect no 'use client'
     const router = useRouter()
@@ -13,6 +13,7 @@ export default function LoginUser() {
     const [classLoginMsg, setClassLoginMsg] = useState("")
 
     const [usuario, setUsuario] = useState({
+        "name":"",
         "email":"",
         "senha":""
     })
@@ -65,6 +66,7 @@ export default function LoginUser() {
                     setTimeout(()=>{
                         setMsgStatus("")
                         setUsuario({
+                            "name":"",
                             "email":"",
                             "senha":""
                         })
@@ -82,14 +84,19 @@ export default function LoginUser() {
 
   return (
     <div>
-        <h1>INFORMAÇÕES DOS USUÁRIOS</h1>
+        <h1>CADASTRO DE USUÁRIOS</h1>
 
         <h2 className={classLoginMsg}>{msgStatus}</h2>
 
         <div>
             <form onSubmit={handleSubmit}>
                 <fieldset>
-                    <legend>Entrar</legend>
+                    <legend>Cadastrar</legend>
+
+                    <div>
+                        <label htmlFor="idNome">NOME</label>
+                        <input type="text" name="nome" id="idNome" placeholder="Digite o seu NOME:" value={usuario.name} onChange={handleChange}/>
+                    </div>
 
                     <div>
                         <label htmlFor="idEmail">EMAIL</label>
@@ -102,11 +109,11 @@ export default function LoginUser() {
                     </div>
 
                     <div>
-                        <button>LOGIN</button>
+                        <button>Sign-in</button>
                     </div>
 
                     <div>
-                        <p>Se você ainda não possui registro. <Link href="/login/cad">CLIQUE AQUI</Link>.</p>
+                        <p>Se você já possui registro. <Link href="/login">CLIQUE AQUI</Link>.</p>
                     </div>
 
                 </fieldset>
