@@ -18,24 +18,29 @@ export async function GET(request, {params}) {
 
 }
 
-
-export async function POST(request, response) {
+// LOGIN
+const handleLogin = async (email, senha) => {
     const file = await fs.readFile(process.cwd() + "/src/app/api/base/data.json", "utf8")
-    
     const usuarios = await JSON.parse(file)
-    
-    const userRequest = await request.json()
 
     try{
         for (let x = 0; x < usuarios.usuarios.length; index++) {
             const userFile = usuarios.usuarios[x];
 
-            if(userFile.email == userRequest.email && userFile.senha == userRequest.senha){
-                return NextResponse.json({"status":true})
+            if(userFile.email == email && userFile.senha == senha){
+                return userFile;
             }
         }
     } catch(error) {
         console.log(error)
+    }
+}
+
+export async function POST(request, response) {    
+    const dataRequest = await request.json()
+
+    if(dataRequest.info == "login"){
+        return NextResponse.json(await handleLogin(dataRequest.email, dataRequest.senha))
     }
 
     return NextResponse.json({"status":false})
