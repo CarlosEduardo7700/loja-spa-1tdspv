@@ -4,6 +4,8 @@ import { useState } from "react"
 
 export default function Login() {
 
+    const [msgStatus, setMsgStatus] = useState("")
+
     const [usuario, setUsuario] = useState({
         "email":"",
         "senha":""
@@ -28,11 +30,14 @@ export default function Login() {
             });
 
             if(response.ok) {
-                let status = response.json().status
-                if(status){
-                    console.log("Usuáro validado!")
+                const status = await response.json()
+
+                if(status.status == true){
+                    
+                    setMsgStatus("Login realizado com sucesso!")
+
                 } else {
-                    console.log("Usuáro invalidado!")
+                    setMsgStatus("Usuário e senha inválido! Tente novamente.")
                 }
             }
 
@@ -46,6 +51,8 @@ export default function Login() {
   return (
     <div>
         <h1>INFORMAÇÕES DOS USUÁRIOS</h1>
+
+        <h2>{msgStatus}</h2>
 
         <div>
             <form onSubmit={handleSubmit}>
