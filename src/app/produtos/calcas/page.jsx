@@ -3,6 +3,8 @@ import Image from 'next/image'
 import React from 'react'
 
 export default function Calcas() {
+
+
   return (
     <div>
         <h1>Calças</h1>

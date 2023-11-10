@@ -24,23 +24,56 @@ const handleLogin = async (email, senha) => {
     const usuarios = await JSON.parse(file)
 
     try{
-        for (let x = 0; x < usuarios.usuarios.length; index++) {
+        for (let x = 0; x < usuarios.usuarios.length; x++) {
             const userFile = usuarios.usuarios[x];
 
             if(userFile.email == email && userFile.senha == senha){
                 return userFile;
             }
         }
+
+        return null;
+
+    } catch(error) {
+        console.log(error)
+    }
+}
+
+// Cadastro
+const handleCadastro = async (nome, email, senha) => {
+    const file = await fs.readFile(process.cwd() + "/src/app/api/base/data.json", "utf8")
+    const usuarios = await JSON.parse(file)
+
+    try{
+        
+        //Gerando ID
+        const id = (usuarios.usuarios[usuarios.usuarios.length - 1].id + 1)
+
+        const user = {
+            "id": id,
+            "nome": nome,
+            "email": email,
+            "senha": senha
+        }
+
+        usuarios.usuarios.push(user)
+
+        await fs.writeFile(process.cwd() + "/src/app/api/base/data.json", JSON.stringify(usuarios))
+
+
+        return user;
     } catch(error) {
         console.log(error)
     }
 }
 
 export async function POST(request, response) {    
-    const dataRequest = await request.json()
+    const {info, nome, email, senha} = await request.json()
 
-    if(dataRequest.info == "login"){
-        return NextResponse.json(await handleLogin(dataRequest.email, dataRequest.senha))
+    if(info == "login"){
+        return NextResponse.json(await handleLogin(email, senha))
+    } else if(info == "cadastro") {
+        return NextResponse.json(await handleCadastro(nome, email, senha))
     }
 
     return NextResponse.json({"status":false})

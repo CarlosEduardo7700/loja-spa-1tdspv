@@ -52,6 +52,12 @@ export default function LoginUser() {
 
                 if(user){
                     
+                    // Token
+                    const token = Math.random().toString(36).substring(2) + Math.random().toString(36).substring(2);
+
+                    //Token no sessionStorage
+                    sessionStorage.setItem("token-user", token)
+
                     setMsgStatus("Login realizado com sucesso!")
 
                     setTimeout(()=>{

@@ -13,7 +13,8 @@ export default function CadUser({params}) {
     const [classLoginMsg, setClassLoginMsg] = useState("")
 
     const [usuario, setUsuario] = useState({
-        "name":"",
+        "info":"cadastro",
+        "nome":"",
         "email":"",
         "senha":""
     })
@@ -50,7 +51,7 @@ export default function CadUser({params}) {
             if(response.ok) {
                 const status = await response.json()
 
-                if(status.status == true){
+                if(usuario){
                     
                     setMsgStatus("Login realizado com sucesso!")
 
@@ -66,7 +67,8 @@ export default function CadUser({params}) {
                     setTimeout(()=>{
                         setMsgStatus("")
                         setUsuario({
-                            "name":"",
+                            "info":"cadastro",
+                            "nome":"",
                             "email":"",
                             "senha":""
                         })
@@ -95,7 +97,7 @@ export default function CadUser({params}) {
 
                     <div>
                         <label htmlFor="idNome">NOME</label>
-                        <input type="text" name="nome" id="idNome" placeholder="Digite o seu NOME:" value={usuario.name} onChange={handleChange}/>
+                        <input type="text" name="nome" id="idNome" placeholder="Digite o seu NOME:" value={usuario.nome} onChange={handleChange}/>
                     </div>
 
                     <div>
